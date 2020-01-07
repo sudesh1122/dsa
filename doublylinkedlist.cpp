@@ -1,157 +1,119 @@
 #include <iostream>
 using namespace std;
-class Node
+
+struct Node
 {
-public:
 	int data;
-	Node* prev;
-	Node* next;
+	Node* prev, * next;
 	Node(int val)
 	{
 		data = val;
-		prev = next = NULL;
+		prev = next = nullptr;
 	}
 	Node()
 	{
-		
-		prev = next = NULL;
+		prev = next = nullptr;
 	}
 };
+
+
 class doublylinkedlist
 {
-public:
-	Node* head;
-	Node* end;
-	doublylinkedlist()
-	{
-		head = end = NULL;
-	}
-	void appendNode(int val)
-	{
-		Node * temp = new Node;
-		temp->data = val;
-		temp->next = NULL;
-		if(end==NULL)
+	private:
+		Node * head, * end;
+	public:
+		doublylinkedlist()
 		{
-			temp->prev =NULL;
-			head= end = temp;
+			head = end = nullptr;
 		}
-		else
+		void appendNode(int val)
 		{
-			end->next = temp;
-			temp->prev = end;
-			end = temp;
-			cout<<"node appended successfully \n";
-		}
-
-	}
-	void display()
-	{
-		Node* temp = head;
-		if(temp==NULL)
-		{
-			cout<<"List is empty, nothing to show\n";
-		}
-		else
-		{	
-			cout<<"Elements of the list are : ";
-			while(temp->next!=NULL)
+			Node * temp = new Node(val);
+			if(!end)
+				head = end = temp;
+			else
 			{
-				cout<<temp->data<<"->";
-				temp = temp->next;
+				end -> next = temp;
+				temp -> prev = end;
+				end = temp;
+				temp = nullptr;
+				cout<<"node appended successfully \n";
 			}
-			cout<<temp->data<<"\n";
-		}	
-		delete temp;
 
-	}
-
-	void prependNode(int val)
-	{	
-		Node * temp = new Node;
-		temp->data = val;
-		temp->prev = NULL;
-		if(head==NULL)
-		{
-			temp->next =NULL;
-			head= end = temp;
 		}
-		else
-		{
-			head->prev = temp;
-			temp->next = head;
-			head = temp;
-			cout<<"node prepended successfully \n";
-		}
-	}
-	void deleteNode(int val)
-	{
-		if(head->data==val)
+		void display()
 		{
 			Node* temp = head;
-			head = head->next;
-			delete temp;
-			cout<<"Node found at the start!!\ndeleted successfully\n";
-		}
-		/*else if(end->data==val)
-		{
-			Node* temp = end;
-			end = end->prev;
-			delete temp;
-			cout<<"Node found at the end!!\ndeleted successfully\n";
-
-		}*/ //we are not applying this condition as we want to use first come first delete approach.
-		else
-		{
-			Node* temp = NULL;
-			Node* prevNode = head;
-			Node* currentNode = head->next;
-			
-			while(currentNode->next!=NULL)
-			{
-				if(currentNode->data==val)
+			if(!temp)
+				cout<<"List is empty, nothing to show\n";
+			else
+			{	
+				cout<<"Elements of the list are : ";
+				while(temp->next!=NULL)
 				{
-					temp = currentNode;
-					
+					cout<<temp->data<<"->";
+					temp = temp->next;
+				}
+				cout<<temp->data<<"\n";
+			}
+		}
+
+		void prependNode(int val)
+		{	
+			Node * temp = new Node(val);
+			if(!head)
+				head= end = temp;
+			else
+			{
+				head->prev = temp;
+				temp->next = head;
+				head = temp;
+				temp = nullptr;
+				cout<<"node prepended successfully \n";
+			}
+		}
+		void deleteNode(int val)
+		{
+			Node* temp= head;
+			while(temp)
+			{
+				if(temp->data==val)
+				{
 					break;
 				}
 				else
-				{
-					prevNode = prevNode->next;
-					currentNode= currentNode->next;
-					
-				}
+					temp = temp->next;
 			}
-			
-			if(temp==NULL)
+			if(!temp)
+				cout<<"Element not found\n";
+			else if(temp == head && head == end)
 			{
-				if(end->data = val)
-				{
-					Node* temp = end;
-					end = end->prev;
-					delete temp;
-					cout<<"Node found at the end of the list\nNode deleted successfully!\n";
-				}
-				else
-				{
-					cout<<"There is no node exists with value "<<val<<endl;
-				}
-			}	
-			else
-			{	
-				Node* nextNode  = currentNode->next;
-					
-				prevNode->next = temp->next;
-				nextNode->prev = temp->prev;
-				delete currentNode;
+				head = end = nullptr;
 				delete temp;
-					
-				cout<<"Node with given value delete successfully!\n";
-				
+				cout<<"deleted last Element.Now list is empty\n";
+			}
+			else if(temp == head)
+			{
+				head = head->next;
+				head->prev = nullptr;
+				delete temp;
+				cout<<"Item deleted from the start of the list\n";
+			}
+			else if(temp == end)
+			{
+				end = end->prev;
+				end->next = nullptr;
+				delete temp;
+				cout<<"item deleted from the end of the list\n";
+			}
+			else
+			{
+				temp->prev ->next = temp->next;
+				temp->next->prev = temp->prev;
+				delete temp;
+				cout<<"item deleted successfully!\n";
 			}
 		}
-
-	}
 };
 int main()
 {	
