@@ -15,7 +15,5 @@
 			<li><a href="https://github.com/sudesh1122/ds-algo/blob/master/quick_sort.cpp">Quick Sort</a></li>
 	
 
-	</ol>
-
-	</ul>	
+		
 </ul>
