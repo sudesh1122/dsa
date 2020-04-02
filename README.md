@@ -6,6 +6,6 @@
 </li>
 <ul>
 	<li>Sorting Algorithms</li>
-	<ol>Insertion Sort</ol>
+	<ol><li>Insertion Sort</li></ol>
 </ul>	
 </ul>
