@@ -6,6 +6,6 @@
 </li>
 <ul>
 	<li>Sorting Algorithms</li>
-	<ol><li>Insertion Sort</li></ol>
+	<ol><li><a href="https://github.com/sudesh1122/ds-algo/blob/master/insertion_sort.cpp" >Insertion Sort</a></li></ol>
 </ul>	
 </ul>
