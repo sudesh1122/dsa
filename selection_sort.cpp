@@ -17,7 +17,7 @@ using namespace std;
 
 
 // Selection Sort algo
-// Time complexcity is O(n^2)
+// Time complexity is O(n^2)
 
 std::vector<int> selectionSort(std::vector<int> &v)
 {
